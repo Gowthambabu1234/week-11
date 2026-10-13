@@ -1,54 +1,34 @@
 
 import os
-from dotenv import load_dotenv
-from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.output_parsers import StrOutputParser
 
-# Load API key from .env
-load_dotenv()
-api_key = os.getenv("GROQ_API_KEY")
-
-if not api_key:
-    raise ValueError("GROQ_API_KEY is missing. Add it to your .env file.")
-
-MODEL = "openai/gpt-oss-120b"
-
-# Initialize the language model
-llm = ChatGroq(
-    model=MODEL,
-    groq_api_key=api_key,
-    temperature=0.2
+# Use Gemini API key from environment variable
+llm = ChatGoogleGenerativeAI(
+    model="gemini-3.8-flash",
+    google_api_key=os.getenv("GEMINI_API_KEY"),
+    temperature=0.7
 )
 
-data = """RAG stands for Retrieval-Augmented Generation. It is an AI
-framework that connects a Large Language Model (LLM) to external,
-private, or real-time data sources. Instead of relying only on the
-AI's memorized training data, RAG allows it to look up specific
-information to provide more accurate and up-to-date answers."""
-
-# Create the prompt template
+# Prompt template
 prompt = ChatPromptTemplate.from_template(
-    "Summarize the following text in exactly 10 sentences. "
-    "Number each sentence from 1 to 10. "
-    "Do not add an introduction or conclusion outside those sentences.\n\n"
-    "{data}"
+    "Write a very short story (2-3 sentences) about {topic}."
 )
 
-# Build the LangChain pipeline
-chain = prompt | llm | StrOutputParser()
+# Output parser
+parser = StrOutputParser()
 
-# Execute the chain
-try:
-    result = chain.invoke({"data": data})
-    print("\nWEEK 11: RAG TEXT SUMMARIZATION")
-    print("=" * 40)
-    print(result)
+# LCEL chain
+chain = prompt | llm | parser
 
-    with open("output.txt", "w", encoding="utf-8") as file:
-        file.write(result)
+# Hardcoded topics
+topics = ["a dragon and a knight", "a lost spaceship"]
 
-    print("\nOutput saved to output.txt")
-
-except Exception as e:
-    print("Error:", e)
+# Run and save the results
+with open("output.txt", "w", encoding="utf-8") as file:
+    for topic in topics:
+        result = chain.invoke({"topic": topic})
+        print(f"\nTopic: {topic}")
+        print(f"Story: {result}")
+        file.write(f"Topic: {topic}\nStory: {result}\n\n")

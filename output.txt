@@ -1,12 +1,6 @@
-﻿WEEK 11: RAG TEXT SUMMARIZATION
-========================================
-1. RAG stands for Retrieval-Augmented Generation, a modern AI framework.
-2. It links a Large Language Model (LLM) with external data sources.
-3. These sources can be private databases, APIs, or real-time information feeds.
-4. By accessing these sources, the LLM can retrieve specific facts on demand.
-5. This retrieval step supplements the model’s internal knowledge base.
-6. Consequently, the system can answer questions with up-to-date information.
-7. RAG reduces reliance on the model’s memorized training data alone.
-8. It improves answer accuracy by grounding responses in verified sources.
-9. The framework is useful for applications requiring current or proprietary data.
-10. Overall, RAG enables more reliable and timely AI-generated outputs.
+Topic: a dragon and a knight
+Story: Sir Gareth lowered his sword as the ancient dragon exhaled a gentle plume of warmth, rekindling the freezing knight's dying campfire. Decades of kingdom-mandated hatred dissolved in the glowing cavern light, leaving only two weary survivors of an endless war.
+
+Topic: a lost spaceship
+Story: For three centuries, the *Astraea* drifted through an uncharted void, her automated distress beacon pulsing toward an Earth that had long since forgotten her. Inside the frost-glazed bridge, the navigational computer flickered and died, unable to recognize a single constellation in the alien sky. Unanchored and blind, the silent ship carried its sleeping crew onward, no longer journeying toward a destination, but simply into forever.
+
